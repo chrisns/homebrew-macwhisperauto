@@ -1,0 +1,34 @@
+name: Update Cask
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version (without v prefix)"
+        required: true
+      sha256:
+        description: "SHA256 hash of the ZIP"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Update cask
+        run: |
+          sed -i "s/version \".*\"/version \"${{ inputs.version }}\"/" Casks/macwhisperauto.rb
+          sed -i "s/sha256 \".*\"/sha256 \"${{ inputs.sha256 }}\"/" Casks/macwhisperauto.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Casks/macwhisperauto.rb
+          git diff --cached --quiet && exit 0
+          git commit -m "Update macwhisperauto to ${{ inputs.version }}"
+          git push
