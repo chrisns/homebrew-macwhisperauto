@@ -16,6 +16,10 @@ cask "macwhisperauto" do
 
   app "MacWhisperAuto.app"
 
+  postflight do
+    system "open", "#{appdir}/MacWhisperAuto.app"
+  end
+
   caveats <<~EOS
     MacWhisperAuto is ad-hoc signed and not notarized by Apple.
     On first launch, macOS Gatekeeper will block it. To allow it:
