@@ -1,6 +1,6 @@
 cask "macwhisperauto" do
-  version "0.1.0"
-  sha256 "placeholder"
+  version "0.0.18-de59a4d"
+  sha256 "8ac388806806739ac09c45bc7eb5734f6364fc997d9931c9bc7e8a2b838049b2"
 
   url "https://github.com/chrisns/MacWhisperAuto/releases/download/v#{version}/MacWhisperAuto.app.zip"
   name "MacWhisperAuto"
